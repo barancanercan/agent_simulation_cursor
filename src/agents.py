@@ -7,7 +7,7 @@ import google.generativeai as genai
 load_dotenv()
 
 # Configure Gemini API
-genai.configure(api_key='AIzaSyBzH19H_iU5LHwGyfnVh3cYmF-zXjUeuCw')
+genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 
 class PoliticalAgent:
     def __init__(self, name: str, party: str, character: str, location: str):
