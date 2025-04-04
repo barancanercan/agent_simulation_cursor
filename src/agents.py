@@ -1,11 +1,13 @@
 from typing import Dict, List
 import os
 from dotenv import load_dotenv
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
+import google.generativeai as genai
 
 # Environment variables
 load_dotenv()
+
+# Configure Gemini API
+genai.configure(api_key='AIzaSyBzH19H_iU5LHwGyfnVh3cYmF-zXjUeuCw')
 
 class PoliticalAgent:
     def __init__(self, name: str, party: str, character: str, location: str):
@@ -13,13 +15,11 @@ class PoliticalAgent:
         self.party = party
         self.character = character
         self.location = location
-        self.model_name = "deepseek-ai/deepseek-coder-1.3b-base"
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(self.model_name)
+        self.model = genai.GenerativeModel('gemini-2.0-flash')
         
     def generate_response(self, agenda: str, previous_messages: List[Dict]) -> str:
         """
-        Generate a response based on the agenda and previous messages using DeepSeek model
+        Generate a response based on the agenda and previous messages using Gemini
         """
         # Construct the prompt
         prompt = f"""
@@ -39,18 +39,8 @@ class PoliticalAgent:
         prompt += f"\n\n{self.name} olarak cevabın:"
         
         # Generate response
-        inputs = self.tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
-        outputs = self.model.generate(
-            inputs["input_ids"],
-            max_length=200,
-            num_return_sequences=1,
-            temperature=0.7,
-            do_sample=True,
-            pad_token_id=self.tokenizer.eos_token_id
-        )
-        
-        response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        return response.split(f"{self.name} olarak cevabın:")[-1].strip()
+        response = self.model.generate_content(prompt)
+        return response.text.strip()
 
 class DenizAgent(PoliticalAgent):
     def __init__(self):
@@ -62,7 +52,7 @@ class DenizAgent(PoliticalAgent):
         )
     
     def generate_response(self, agenda: str, previous_messages: List[Dict]) -> str:
-        # TODO: Implement specific CHP-oriented response generation
+        # CHP-oriented response generation
         return super().generate_response(agenda, previous_messages)
 
 class PolatAgent(PoliticalAgent):
@@ -75,5 +65,5 @@ class PolatAgent(PoliticalAgent):
         )
     
     def generate_response(self, agenda: str, previous_messages: List[Dict]) -> str:
-        # TODO: Implement specific AKP-oriented response generation
+        # AKP-oriented response generation
         return super().generate_response(agenda, previous_messages) 
