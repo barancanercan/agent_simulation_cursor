@@ -1,7 +1,7 @@
 import streamlit as st
 from typing import List, Dict
 import time
-from agents import DenizAgent, PolatAgent
+from agents import DenizAgent, PolatAgent, KararsizAgent
 
 # Sayfa yapılandırması
 st.set_page_config(
@@ -16,6 +16,7 @@ st.markdown("""
 Bu uygulama, verilen bir gündem özeti üzerinde iki farklı siyasi görüşe sahip yapay zeka ajanının tartışmasını simüle eder.
 * 🟥 **Deniz** (CHP): Aydın, kültürlü, entelektüel
 * 🟦 **Polat** (AKP): Muhafazakar, taşralı, halkçı
+* 🟨 **Miraç (Kararsız-Küskün Seçmen)**: Sorgulayıcı ve memnuniyetsiz, muhafazakar ve milliyetçi bir aileden gelen seküler yaşam tarzı süren
 """)
 
 # Session state initialization
@@ -26,8 +27,11 @@ if 'simulation_running' not in st.session_state:
 if 'agents' not in st.session_state:
     st.session_state.agents = {
         'deniz': DenizAgent(),
-        'polat': PolatAgent()
+        'polat': PolatAgent(),
+        'kararsiz': KararsizAgent()
     }
+if 'analysis_shown' not in st.session_state:
+    st.session_state.analysis_shown = False
 
 # Sidebar - Gündem girişi
 with st.sidebar:
@@ -41,6 +45,7 @@ with st.sidebar:
     if st.button("🚀 Simülasyonu Başlat", disabled=not agenda):
         st.session_state.simulation_running = True
         st.session_state.messages = []  # Mesajları temizle
+        st.session_state.analysis_shown = False
     
     if st.button("🛑 Simülasyonu Durdur", disabled=not st.session_state.simulation_running):
         st.session_state.simulation_running = False
@@ -51,9 +56,22 @@ if st.session_state.messages:
         if msg['role'] == 'Deniz':
             with st.chat_message("user", avatar="🟥"):
                 st.markdown(f"**Deniz (CHP):** {msg['content']}")
-        else:
+        elif msg['role'] == 'Polat':
             with st.chat_message("assistant", avatar="🟦"):
                 st.markdown(f"**Polat (AKP):** {msg['content']}")
+        elif msg['role'] == 'Kararsız-Küskün Seçmen':
+            with st.chat_message("user", avatar="🟨"):
+                st.markdown(f"**Miraç (Kararsız-Küskün Seçmen):** {msg['content']}")
+
+# Simülasyon durdurulduğunda ve analiz gösterilmediğinde
+if not st.session_state.simulation_running and st.session_state.messages and not st.session_state.analysis_shown:
+    st.markdown("---")
+    st.subheader("📊 Kararsız-Küskün Seçmen Analizi")
+    
+    analysis = st.session_state.agents['kararsiz'].analyze_debate(agenda, st.session_state.messages)
+    st.session_state.messages.append({"role": "Kararsız-Küskün Seçmen", "content": analysis})
+    st.session_state.analysis_shown = True
+    st.rerun()
 
 # Simülasyon mantığı
 if st.session_state.simulation_running and agenda:

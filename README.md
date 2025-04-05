@@ -1,20 +1,20 @@
 # 🗣️ Siyasi Tartışma Simülasyonu
 
-Bu proje, yapay zeka ajanları arasında siyasi tartışmaları simüle eden bir uygulamadır. İki farklı siyasi görüşe sahip ajan (Deniz ve Polat), kullanıcı tarafından belirlenen gündem üzerinde tartışır.
+Bu proje, yapay zeka destekli siyasi tartışma simülasyonu uygulamasıdır.
 
 ## 🚀 Özellikler
 
-- İnteraktif web arayüzü
-- Gerçek zamanlı tartışma simülasyonu
-- İki farklı siyasi karakterin temsili
-- Kullanıcı tarafından belirlenebilen gündem
+- CHP ve AKP taraftarı seçmenler arasında siyasi tartışma simülasyonu
+- Kararsız-küskün seçmen (Miraç) perspektifinden tartışma analizi
+- Streamlit tabanlı kullanıcı arayüzü
+- Google Gemini API kullanarak yapay zeka destekli yanıtlar
 
 ## 🛠️ Kurulum
 
 1. Projeyi klonlayın:
 ```bash
-git clone [repo-url]
-cd agent_simulation_cursor
+git clone https://github.com/kullaniciadi/siyasi-tartisma-simulasyonu.git
+cd siyasi-tartisma-simulasyonu
 ```
 
 2. Sanal ortam oluşturun ve aktive edin:
@@ -28,6 +28,11 @@ source .venv/bin/activate  # Linux/Mac
 3. Gerekli paketleri yükleyin:
 ```bash
 pip install -r requirements.txt
+```
+
+4. `.env` dosyası oluşturun ve Gemini API anahtarınızı ekleyin:
+```
+GEMINI_API_KEY=your_api_key_here
 ```
 
 ## 🎮 Kullanım
@@ -72,4 +77,9 @@ Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için `LICEN
 ## 🙏 Teşekkürler
 
 - Streamlit ekibine harika framework için
-- DeepSeek ekibine AI modeli için 
+- DeepSeek ekibine AI modeli için
+
+## Canlı Uygulama
+
+Uygulamayı şu adresten canlı olarak deneyebilirsiniz:
+https://siyasitartisma.streamlit.app/ 
