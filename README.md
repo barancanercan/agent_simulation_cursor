@@ -13,7 +13,7 @@ Bu proje, yapay zeka destekli siyasi tartışma simülasyonu uygulamasıdır.
 
 1. Projeyi klonlayın:
 ```bash
-git clone https://github.com/kullaniciadi/siyasi-tartisma-simulasyonu.git
+git clone https://github.com/barancanercan/agent_simulation_cursor.git
 cd siyasi-tartisma-simulasyonu
 ```
 
@@ -77,7 +77,7 @@ Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için `LICEN
 ## 🙏 Teşekkürler
 
 - Streamlit ekibine harika framework için
-- DeepSeek ekibine AI modeli için
+- Gemini ekibine AI modeli için
 
 ## Canlı Uygulama
 
