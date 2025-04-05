@@ -8,78 +8,61 @@ Bu proje, yapay zeka destekli siyasi tartışma simülasyonu uygulamasıdır.
 - Kararsız-küskün seçmen (Miraç) perspektifinden tartışma analizi
 - Streamlit tabanlı kullanıcı arayüzü
 - Google Gemini API kullanarak yapay zeka destekli yanıtlar
+- Konuşma geçmişi özelliği ile önceki tartışmalara erişim
+- Yeni konuşma başlatma ve mevcut konuşmayı silme seçenekleri
 
 ## 🛠️ Kurulum
 
 1. Projeyi klonlayın:
 ```bash
 git clone https://github.com/barancanercan/agent_simulation_cursor.git
-cd siyasi-tartisma-simulasyonu
+cd agent_simulation_cursor
 ```
 
-2. Sanal ortam oluşturun ve aktive edin:
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Linux/Mac
-# veya
-.venv\Scripts\activate  # Windows
-```
-
-3. Gerekli paketleri yükleyin:
+2. Gerekli paketleri yükleyin:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. `.env` dosyası oluşturun ve Gemini API anahtarınızı ekleyin:
+3. `.env` dosyası oluşturun ve Gemini API anahtarınızı ekleyin:
 ```
 GEMINI_API_KEY=your_api_key_here
 ```
 
-## 🎮 Kullanım
+## 💻 Kullanım
 
 1. Uygulamayı başlatın:
 ```bash
 streamlit run src/app.py
 ```
 
-2. Web tarayıcınızda `http://localhost:8501` adresine gidin
-3. Sidebar'dan tartışma gündemini girin
-4. "Simülasyonu Başlat" butonuna tıklayın
-5. Tartışmayı izleyin ve istediğiniz zaman durdurun
+2. Sol menüden tartışma gündemini girin
+3. "Simülasyonu Başlat" butonuna tıklayın
+4. Tartışmayı durdurmak için "Simülasyonu Durdur" butonunu kullanın
+5. Yeni bir konuşma başlatmak için "Yeni Konuşma" butonunu kullanın
+6. Mevcut konuşmayı silmek için "Konuşmayı Sil" butonunu kullanın
+7. Önceki tartışmalara erişmek için sidebar'daki "Konuşma Geçmişi" bölümünü kullanın
 
-## 🧩 Proje Yapısı
+## 🌐 Canlı Uygulama
 
-```
-.
-├── README.md
-├── requirements.txt
-├── rules/
-│   └── rules.md
-├── src/
-│   ├── app.py
-│   └── agents.py
-├── templates/
-└── static/
-```
+Uygulamayı şu adresten canlı olarak deneyebilirsiniz:
+https://siyasitartisma.streamlit.app/
+
+## 📝 Kurallar
+
+1. Her ajan kendi siyasi görüşüne göre cevap verir
+2. Konuşma sırası: Deniz -> Polat -> Miraç
+3. Miraç, kararsız-küskün seçmen olarak her iki tarafı da değerlendirir
+4. Her ajan önceki mesajları dikkate alır
 
 ## 🤝 Katkıda Bulunma
 
-1. Bu repo'yu fork edin
-2. Feature branch'i oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
-4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+1. Bu depoyu fork edin
+2. Yeni bir özellik dalı oluşturun (`git checkout -b yeni-ozellik`)
+3. Değişikliklerinizi commit edin (`git commit -am 'Yeni özellik: X'`)
+4. Dalınıza push yapın (`git push origin yeni-ozellik`)
 5. Bir Pull Request oluşturun
 
-## 📝 Lisans
+## 📄 Lisans
 
-Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için `LICENSE` dosyasına bakın.
-
-## 🙏 Teşekkürler
-
-- Streamlit ekibine harika framework için
-- Gemini ekibine AI modeli için
-
-## Canlı Uygulama
-
-Uygulamayı şu adresten canlı olarak deneyebilirsiniz:
-https://siyasitartisma.streamlit.app/ 
+MIT 
